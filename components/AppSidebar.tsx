@@ -1,8 +1,12 @@
 import {
   Calendar,
+  ChevronDown,
   ChevronUp,
   Home,
   Inbox,
+  MessageCircleWarning,
+  Plus,
+  Projector,
   Search,
   Settings,
   User2,
@@ -15,13 +19,20 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
+  SidebarGroupAction,
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
+  SidebarMenuAction,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   SidebarSeparator,
+  SidebarTrigger,
 } from "./ui/sidebar";
 import {
   DropdownMenu,
@@ -29,35 +40,40 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "./ui/dropdown-menu";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "./ui/collapsible";
 
-// Menu items.
-const items = [
+// Menu Applications.
+const Applications = [
   {
-    id: "IT-01",
+    id: "APP-01",
     title: "Home",
     url: "#",
     icon: Home,
   },
   {
-    id: "IT-02",
+    id: "APP-02",
     title: "Inbox",
     url: "#",
     icon: Inbox,
   },
   {
-    id: "IT-03",
+    id: "APP-03",
     title: "Calendar",
     url: "#",
     icon: Calendar,
   },
   {
-    id: "IT-04",
+    id: "APP-04",
     title: "Search",
     url: "#",
     icon: Search,
   },
   {
-    id: "IT-05",
+    id: "APP-05",
     title: "Settings",
     url: "#",
     icon: Settings,
@@ -66,8 +82,8 @@ const items = [
 
 const AppSidebar = () => {
   return (
-    <Sidebar>
-      <SidebarHeader>
+    <Sidebar collapsible="icon">
+      <SidebarHeader className="py-4">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild>
@@ -79,26 +95,132 @@ const AppSidebar = () => {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      {/* <SidebarSeparator /> */}
+
       <SidebarContent>
+        {/* NORMAL MENU GROUP */}
         <SidebarGroup>
           <SidebarGroupLabel>Aplications</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.id}>
+              {Applications.map((app) => (
+                <SidebarMenuItem key={app.id}>
                   <SidebarMenuButton asChild>
-                    <Link href={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                    <Link href={app.url}>
+                      <app.icon />
+                      <span>{app.title}</span>
                     </Link>
                   </SidebarMenuButton>
+                  {app.id === "APP-02" && (
+                    <SidebarMenuBadge>24</SidebarMenuBadge>
+                  )}
+                  {app.id === "APP-04" && (
+                    <SidebarMenuBadge>
+                      <MessageCircleWarning className="w-5 h-5 text-destructive" />
+                    </SidebarMenuBadge>
+                  )}
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {/* MENU GROUP + ACTION BUTTON */}
+        <SidebarGroup>
+          <SidebarGroupLabel>Projects</SidebarGroupLabel>
+          <SidebarGroupAction>
+            <Plus /> <span className="sr-only">Add project</span>
+          </SidebarGroupAction>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href={"/#"}>
+                    <Projector /> See All Projects
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href={"/#"}>
+                    <Plus /> Add project
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* COLLAPSIBLE */}
+        <Collapsible defaultOpen className="group/collapsible">
+          <SidebarGroup>
+            <SidebarGroupLabel asChild>
+              <CollapsibleTrigger>
+                Collapsible Items
+                <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180" />
+              </CollapsibleTrigger>
+            </SidebarGroupLabel>
+            <CollapsibleContent>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
+                      <Link href={"/#"}>
+                        <Projector /> See All Projects
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton asChild>
+                      <Link href={"/#"}>
+                        <Plus /> Add project
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </CollapsibleContent>
+          </SidebarGroup>
+        </Collapsible>
+
+        {/* NESTED MENU */}
+        <SidebarGroup>
+          <SidebarGroupLabel>Nested Items</SidebarGroupLabel>
+          <SidebarGroupAction>
+            <Plus /> <span className="sr-only">Add project</span>
+          </SidebarGroupAction>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href={"/#"}>
+                    <Projector /> See All Projects
+                  </Link>
+                </SidebarMenuButton>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton asChild>
+                      <Link href={"/#"}>
+                        <Plus /> Add project
+                      </Link>
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton asChild>
+                      <Link href={"/#"}>
+                        <Plus /> Add Category
+                      </Link>
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
+
+      {/* FOOTER */}
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
