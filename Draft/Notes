@@ -1,0 +1,5 @@
+- do a research on hook (useEffect) and see the exmple on DatePekcer.tsx and TodoList.tsxs
+
+- DatePicker and the TodoList
+  - add the clear button insde the datepicker popover
+  - instead of the input date picker add a button and show the formated selected date as shown in toturial

@@ -93,13 +93,13 @@ const CardList = ({ title }: { title: string }) => {
   const list =
     title === "Popular Content" ? popularContent : latestTransactions;
   return (
-    <div className="">
+    <div className="h-full">
       <h1 className="text-lg font-medium mb-6"> {title} </h1>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 ">
         {list.map((item) => (
           <Card
             key={item.id}
-            className="flex flex-row items-center justify-between gap-4 p-4"
+            className="flex flex-row items-center justify-between gap-4 p-4 "
           >
             <div className="w-12 h-12 rounded-sm relative overflow-hidden">
               <Image
